@@ -1,80 +1,60 @@
-# Blockchain Drive: Securing Data on the Ethereum & IPFS
+# Blockchain Drive – Securing Data Using Ethereum & IPFS
 
+Ce projet vise à concevoir une **application web de stockage de fichiers décentralisé** basée sur la **blockchain Ethereum** et le système de fichiers distribué **IPFS**.
+Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont enregistrés sur la blockchain à l’aide d’un **smart contract**, garantissant sécurité, traçabilité et contrôle d’accès.
 
-Welcome to Blockchain Drive, a decentralized data storage solution that leverages the power of Ethereum and IPFS to securely store and manage your data.
+## Architecture du projet
 
-**Project Link:** [http://blockchain-drive.ruhul.info](http://blockchain-drive.ruhul.info/)
+* **Frontend** : React.js
+* **Blockchain** : Ethereum (Smart Contract Solidity)
+* **Stockage décentralisé** : IPFS
+* **Service IPFS** : Pinata
+* **Wallet** : MetaMask
 
-**Youtube Link:** [https://www.youtube.com/watch?v=o9oqNeTxKJQ]( https://www.youtube.com/watch?v=o9oqNeTxKJQ)
+## Installation et exécution
 
-**GitHub Repository:** [Blockchain Drive GitHub](https://github.com/ruhulamin1398/Blockchain-Drive____Securing-Data-using-the-Ethereum-and-IPFS.git)
+### 1️⃣ Prérequis
 
+* Node.js
+* MetaMask
+* Hardhat
+* Compte Pinata
 
-## Watch the Project Overview Video
-
-[![Blockchain Drive Overview](https://img.youtube.com/vi/o9oqNeTxKJQ/0.jpg)](https://www.youtube.com/watch?v=o9oqNeTxKJQ)
-
-
-
-## Screen Shots 
-### Home Page
-![Project Logo](/screenshot/homePage.png)
-
-
-### Share Page
-![Project Logo](/screenshot/Share%20page%20.png)
-
-
-## Features
-
-- **MetaMask Integration**: Seamlessly connect your MetaMask wallet to the Blockchain Drive application.
-
-- **File Upload to IPFS**: Select and upload your files, which are securely stored on IPFS via Pinata.
-
-- **Ethereum Link Storage**: After a successful file upload, the link to your data is stored on the Ethereum blockchain for added security and permanence.
-
-- **Share and Access Control**: Share access to your stored files with other Ethereum accounts. You can also revoke access as needed.
-
-## Smart Contract
-
-- **Solidity Version**: ^0.8.0
-- **Deployment Network**: Sepolia test net
-- **Deployment Tool**: Hardhat
-
-<!-- Our smart contract is built with the latest Solidity version and is deployed on the Sepolia test network using Hardhat for seamless Ethereum integration. -->
-
-## Client Application
-
-- **Built with React.js**: Our user-friendly web application is developed using React.js.
-
-- **Styled with Tailwind CSS**: A beautiful and responsive UI is achieved with Tailwind CSS.
-
-- **Ethereum Integration**: We use the ethers library (version 5.5.1) for Ethereum integration to provide a smooth user experience.
-
-## Getting Started
-
-1. Clone the repository to your local machine:
+### 2️⃣ Installation
 
 ```bash
-git clone https://github.com/ruhulamin1398/Blockchain-Drive____Securing-Data-using-the-Ethereum-and-IPFS.git
+git clone https://github.com/your-username/Blockchain-Drive.git
+cd Blockchain-Drive
+npm install
 ```
-2. Deploy Smart contract :
+
+### 3️⃣ Lancer la blockchain locale
 
 ```bash
-    /smart_contract/contracts/Upload.sol
+npx hardhat node
 ```
-3. Replace ABI :
+
+### 4️⃣ Déployer le smart contract
 
 ```bash
-    /client/src/utils/upload.json
+npx hardhat run scripts/deploy.js --network localhost
 ```
-4. Replace Deployed Contract address :
+
+### 5️⃣ Lancer le frontend
 
 ```bash
-    /client/src/utils/constants.js
+cd client
+npm install
+npm start
 ```
-5. Replace Pinata access :
 
-```bash
-    /client/src/utils/constants.js
+## Configuration Pinata
+
+Les clés Pinata doivent être renseignées dans :
+
 ```
+client/src/utils/constants.js
+```
+
+* API Key
+* API Secret ou JWT
