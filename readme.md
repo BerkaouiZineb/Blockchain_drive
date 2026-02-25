@@ -2,7 +2,29 @@
 
 Ce projet vise à concevoir une **application web de stockage de fichiers décentralisé** basée sur la **blockchain Ethereum** et le système de fichiers distribué **IPFS**.
 Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont enregistrés sur la blockchain à l’aide d’un **smart contract**, garantissant sécurité, traçabilité et contrôle d’accès.
+# Blockchain Drive – Securing Data Using Ethereum & IPFS
 
+Ce projet vise à concevoir une **application web de stockage de fichiers décentralisé** basée sur la **blockchain Ethereum** et le système de fichiers distribué **IPFS**.
+Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont enregistrés sur la blockchain à l’aide d’un **smart contract**, garantissant sécurité, traçabilité et contrôle d’accès.
+
+## Architecture du projet
+
+* **Frontend** : React.js
+* **Blockchain** : Ethereum (Smart Contract Solidity)
+* **Stockage décentralisé** : IPFS
+* **Service IPFS** : Pinata
+* **Wallet** : MetaMask
+
+## Installation et exécution
+
+### 1️⃣ Prérequis
+
+* Node.js
+* MetaMask
+* Hardhat
+* Compte Pinata
+
+### 2️⃣ Installation
 ## Architecture du projet
 
 * **Frontend** : React.js
@@ -23,26 +45,37 @@ Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont 
 ### 2️⃣ Installation
 
 ```bash
-git clone https://github.com/your-username/Blockchain-Drive.git
+git clone https://github.com/BerkaouiZineb/Blockchain-Drive.git
 cd Blockchain-Drive
 npm install
 ```
 
 ### 3️⃣ Lancer la blockchain locale
 
+### 3️⃣ Lancer la blockchain locale
+
 ```bash
+npx hardhat node
 npx hardhat node
 ```
 
 ### 4️⃣ Déployer le smart contract
 
+### 4️⃣ Déployer le smart contract
+
 ```bash
+npx hardhat run scripts/deploy.js --network localhost
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
 ### 5️⃣ Lancer le frontend
 
+### 5️⃣ Lancer le frontend
+
 ```bash
+cd client
+npm install
+npm start
 cd client
 npm install
 npm start
@@ -52,6 +85,12 @@ npm start
 
 Les clés Pinata doivent être renseignées dans :
 
+## Configuration Pinata
+
+Les clés Pinata doivent être renseignées dans :
+
+```
+client/src/utils/constants.js
 ```
 client/src/utils/constants.js
 ```

@@ -2,16 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 import "./FileUpload.css";
 import { API_Key, API_Secret } from "../utils/constants";
-import { JWT } from "../utils/constants";
-
 
 const FileUpload = ({ contract, account, provider }) => {
   const [file, setFile] = useState(null);
-  const [fileName, setFileName] = useState("No image selected");
+  const [fileName, setFileName] = useState("No file selected");
+  const [uploading, setUploading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
       try {
+        setUploading(true);
         const formData = new FormData();
         formData.append("file", file);
 
@@ -25,25 +26,26 @@ const FileUpload = ({ contract, account, provider }) => {
             "Content-Type": "multipart/form-data",
           },
         });
-        
 
-        const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        contract.add(account,ImgHash);
-      
-        // alert("Successfully Image Uploaded");
-        setFileName("No image selected");
+        // Utilisation d'un gateway public plus fiable
+        const fileHash = `https://ipfs.io/ipfs/${resFile.data.IpfsHash}`;
+        await contract.add(account, fileHash);
+
+        alert("Fichier uploadé avec succès !");
+        setFileName("No file selected");
         setFile(null);
       } catch (e) {
-        alert("Unable to upload image to Pinata");
+      console.error("Erreur complète :", e);
+      console.error("Réponse Pinata :", e.response?.data);
+  alert("Erreur lors de l'upload vers Pinata");
+      } finally {
+        setUploading(false);
       }
     }
-    // alert("Successfully Image Uploaded");
-    setFileName("No image selected");
-    setFile(null);
   };
+
   const retrieveFile = (e) => {
-    const data = e.target.files[0]; //files array of files object
-    // console.log(data);
+    const data = e.target.files[0];
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(data);
     reader.onloadend = () => {
@@ -52,25 +54,29 @@ const FileUpload = ({ contract, account, provider }) => {
     setFileName(e.target.files[0].name);
     e.preventDefault();
   };
+
   return (
     <div className="top">
       <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="choose">
-          Choose Image
+          Choisir un fichier
         </label>
+        {/* accept="*" permet tous les types de fichiers */}
         <input
           disabled={!account}
           type="file"
           id="file-upload"
           name="data"
+          accept="*"
           onChange={retrieveFile}
         />
-        <span className="textArea">Image: {fileName}</span>
-        <button type="submit" className="upload" disabled={!file}>
-          Upload File
+        <span className="textArea">Fichier : {fileName}</span>
+        <button type="submit" className="upload" disabled={!file || uploading}>
+          {uploading ? "Upload en cours..." : "Upload File"}
         </button>
       </form>
     </div>
   );
 };
+
 export default FileUpload;

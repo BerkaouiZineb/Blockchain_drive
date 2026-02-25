@@ -1,12 +1,21 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19",
 
   networks: {
+    // Réseau local pour le développement
+    localhost: {
+      url: "http://127.0.0.1:8545",
+      gas: 12000000,
+    },
+
+    // Réseau Sepolia pour le déploiement en ligne (tesnet)
     sepolia: {
-      url: 'https://eth-sepolia.g.alchemy.com/v2/9KEc39jGMz3VrFc2shGn827Il4rSGs9V',
-      accounts: ['20cec08faea52eb9f022ab7c0f79224d6fe8c1594e3126d6367a3c669080f33a'],
-    },}
+      accounts: [process.env.PRIVATE_KEY],
+      url: process.env.ALCHEMY_URL
+    },
+  }
 };

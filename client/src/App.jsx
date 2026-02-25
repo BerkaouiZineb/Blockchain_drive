@@ -5,7 +5,6 @@ import "./App.css";
 import { ethers } from "ethers";
 import { contractAbi, contractAddress } from './utils/constants';
 import FileUpload from './components/FileUpload'; 
-// import Modal from './components/Modal';
 import Display from './components/Display';
 import Navigation from './components/Navigation';
 import Files from './components/Files';
@@ -15,7 +14,6 @@ function App() {
   const [account , setAccount] = useState('');
   const [contract , setContract] = useState('');
   const [provider , setProvider] = useState(''); 
-  // const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(()=>{
     if(window.ethereum){

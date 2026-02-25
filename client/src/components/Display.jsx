@@ -1,130 +1,105 @@
-/*
 import { useState } from "react";
 import "./Display.css";
-import Files from "./Files";
-const Display = ({ contract, account }) => {
-  const [data, setData] = useState("");
- 
-  const getdata = async () => {
-    let dataArray;
-    const Otheraddress = document.querySelector(".address").value;
-    try {
-      if (Otheraddress) {
-        dataArray = await contract.display(Otheraddress);
-        console.log(dataArray);
-      } else {
-        dataArray = await contract.display(account);
-      }
-    } catch (e) {
-      alert("You don't have access");
-    }
-    const isEmpty = Object.keys(dataArray).length === 0;
 
-    if (!isEmpty) {
-      const str = dataArray.toString();
-      const str_array = str.split(",");
-      // console.log(str);
-      // console.log(str_array);
-      const images = str_array.map((item, i) => {
-        return (
-          <>
-          <a href={item} key={i} target="_blank">
-            <img
-              key={i}
-              // src={`https://gateway.pinata.cloud/ipfs/${item.substring(36)}`}
-              src={`https://gateway.pinata.cloud/ipfs/QmQvi5s12wdKnuNqRuoLHEekY19EBk7bWjne2b1NARwcyi`}
-              
-              alt="new"
-              className="image-list"
-              ></img>
-          </a>
+// Fonction pour détecter le type de fichier depuis l'URL
+const getFileType = (url) => {
+  const extension = url.split(".").pop().split("?")[0].toLowerCase();
+  if (["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(extension)) return "image";
+  if (["mp4", "webm", "ogg"].includes(extension)) return "video";
+  if (["mp3", "wav"].includes(extension)) return "audio";
+  if (extension === "pdf") return "pdf";
+  return "other";
+};
 
-          
+// Composant pour afficher un fichier selon son type
+const FilePreview = ({ url, index }) => {
+  const type = getFileType(url);
+  const fileName = url.split("/").pop() || `Fichier ${index + 1}`;
 
-        </>
+  if (type === "image") {
+    return (
+      <a href={url} key={index} target="_blank" rel="noreferrer">
+        <img src={url} alt={`fichier-${index}`} className="image-list" />
+      </a>
+    );
+  }
 
+  if (type === "video") {
+    return (
+      <div key={index} className="file-item">
+        <video controls width="250">
+          <source src={url} />
+          Votre navigateur ne supporte pas la vidéo.
+        </video>
+      </div>
+    );
+  }
 
+  if (type === "audio") {
+    return (
+      <div key={index} className="file-item">
+        <p>🎵 {fileName}</p>
+        <audio controls>
+          <source src={url} />
+        </audio>
+      </div>
+    );
+  }
 
-        );
-      });
-      setData(images);
-    } else {
-      alert("No image to display");
-    }
-  };
+  if (type === "pdf") {
+    return (
+      <div key={index} className="file-item">
+        <a href={url} target="_blank" rel="noreferrer">
+          📄 {fileName}
+        </a>
+      </div>
+    );
+  }
+
+  // Autres fichiers (zip, docx, etc.)
   return (
-    <>
-      <div className="image-list">{data}</div>
-      <input
-        type="text"
-        placeholder="Enter Address"
-        className="address"
-      ></input>
-      <button className="center button" onClick={getdata}>
-        Get Data
-      </button>
-
- 
-
-
-    </>
+    <div key={index} className="file-item">
+      <a href={url} target="_blank" rel="noreferrer">
+        📁 {fileName}
+      </a>
+    </div>
   );
 };
-export default Display;
-export const GetAllData= async() =>{
-  getdata();
-}
-*/
-import { useState } from "react";
-import "./Display.css";
 
 const Display = ({ contract, account }) => {
   const [data, setData] = useState([]);
 
   const getData = async () => {
     if (!contract || !account) {
-      alert("Wallet not connected");
+      alert("Wallet non connecté");
       return;
     }
 
     try {
-      // Affiche uniquement les fichiers du compte connecté
       const dataArray = await contract.display(account);
 
-      if (dataArray.length === 0) {
-        alert("No files to display");
+      if (!dataArray || dataArray.length === 0) {
+        alert("Aucun fichier à afficher");
         setData([]);
         return;
       }
 
-      const images = dataArray.map((item, index) => (
-        <a
-          href={item}
-          key={index}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={item}
-            alt="uploaded"
-            className="image-list"
-          />
-        </a>
+      const files = dataArray.map((item, index) => (
+        <FilePreview url={item} index={index} key={index} />
       ));
 
-      setData(images);
+      setData(files);
     } catch (error) {
       console.error(error);
-      alert("You don't have access");
+      alert("Vous n'avez pas accès ou une erreur s'est produite");
     }
   };
 
   return (
     <>
       <div className="image-list">{data}</div>
-
       <button className="center button" onClick={getData}>
-        Get My Files
+        Afficher mes fichiers
       </button>
     </>
   );
