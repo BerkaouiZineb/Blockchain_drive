@@ -17,32 +17,14 @@ Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont 
 
 ## Installation et exécution
 
-### 1️⃣ Prérequis
+### 1. Prérequis
 
 * Node.js
 * MetaMask
 * Hardhat
 * Compte Pinata
 
-### 2️⃣ Installation
-## Architecture du projet
-
-* **Frontend** : React.js
-* **Blockchain** : Ethereum (Smart Contract Solidity)
-* **Stockage décentralisé** : IPFS
-* **Service IPFS** : Pinata
-* **Wallet** : MetaMask
-
-## Installation et exécution
-
-### 1️⃣ Prérequis
-
-* Node.js
-* MetaMask
-* Hardhat
-* Compte Pinata
-
-### 2️⃣ Installation
+### 2. Installation
 
 ```bash
 git clone https://github.com/BerkaouiZineb/Blockchain-Drive.git
@@ -50,27 +32,19 @@ cd Blockchain-Drive
 npm install
 ```
 
-### 3️⃣ Lancer la blockchain locale
-
-### 3️⃣ Lancer la blockchain locale
+### 3. Lancer la blockchain locale
 
 ```bash
 npx hardhat node
-npx hardhat node
 ```
 
-### 4️⃣ Déployer le smart contract
-
-### 4️⃣ Déployer le smart contract
+### 4. Déployer le smart contract
 
 ```bash
-npx hardhat run scripts/deploy.js --network localhost
-npx hardhat run scripts/deploy.js --network localhost
+npx hardhat run scripts/deploy.js
 ```
 
-### 5️⃣ Lancer le frontend
-
-### 5️⃣ Lancer le frontend
+### 5. Lancer le frontend
 
 ```bash
 cd client
@@ -85,12 +59,6 @@ npm start
 
 Les clés Pinata doivent être renseignées dans :
 
-## Configuration Pinata
-
-Les clés Pinata doivent être renseignées dans :
-
-```
-client/src/utils/constants.js
 ```
 client/src/utils/constants.js
 ```
