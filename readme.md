@@ -1,8 +1,4 @@
-# Blockchain Drive – Securing Data Using Ethereum & IPFS
-
-Ce projet vise à concevoir une **application web de stockage de fichiers décentralisé** basée sur la **blockchain Ethereum** et le système de fichiers distribué **IPFS**.
-Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont enregistrés sur la blockchain à l’aide d’un **smart contract**, garantissant sécurité, traçabilité et contrôle d’accès.
-# Blockchain Drive – Securing Data Using Ethereum & IPFS
+# Blockchain Drive: Securing Data Using Ethereum & IPFS
 
 Ce projet vise à concevoir une **application web de stockage de fichiers décentralisé** basée sur la **blockchain Ethereum** et le système de fichiers distribué **IPFS**.
 Les fichiers sont stockés sur IPFS via **Pinata**, tandis que leurs liens sont enregistrés sur la blockchain à l’aide d’un **smart contract**, garantissant sécurité, traçabilité et contrôle d’accès.
@@ -47,9 +43,6 @@ npx hardhat run scripts/deploy.js
 ### 5. Lancer le frontend
 
 ```bash
-cd client
-npm install
-npm start
 cd client
 npm install
 npm start
